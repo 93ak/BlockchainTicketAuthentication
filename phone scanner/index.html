@@ -1,0 +1,45 @@
+Phone scanner
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ChainPass - Mobile Gate Scanner</title>
+  <script src="https://unpkg.com/html5-qrcode"></script>
+  <style>
+    body { background: #050810; color: #00f5d4; font-family: sans-serif; text-align: center; padding: 20px; }
+    #reader { width: 100%; max-width: 400px; margin: 0 auto; border: 2px solid #00f5d4; border-radius: 12px; }
+    .status { margin-top: 20px; font-size: 1.2rem; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h2>📱 Gate Scanner</h2>
+  <div id="reader"></div>
+  <div class="status" id="status-text">Point at the PC Screen</div>
+
+  <script>
+    let scanner = new Html5QrcodeScanner("reader", { fps: 10, qrbox: {width: 250, height: 250} }, false);
+    let isScanning = false;
+
+    scanner.render(async (decodedText) => {
+      if (isScanning) return;
+      isScanning = true;
+      document.getElementById('status-text').innerText = "Sending signal to PC...";
+      document.getElementById('status-text').style.color = "#f59e0b";
+
+      // Send the "SCANNED" message to the bridge using the specific Ticket ID
+      try {
+        await fetch('https://ntfy.sh/chainpass_ignite26_' + decodedText, {
+          method: 'POST',
+          body: 'SCANNED'
+        });
+        
+        document.getElementById('status-text').innerText = "✅ Success! Look at the Laptop.";
+        document.getElementById('status-text').style.color = "#10b981";
+        scanner.clear(); // Turn off camera
+      } catch (err) {
+        document.getElementById('status-text').innerText = "Error connecting to bridge.";
+      }
+    });
+  </script>
+</body>
+</html>
