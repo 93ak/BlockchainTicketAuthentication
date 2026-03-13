@@ -428,8 +428,9 @@
       </div>
       <div class="mm-contract">
         <span class="mm-contract-label">CONTRACT ADDRESS</span>
-        0xf1AEB9dB95400D16B16152DAABD0e332FE43f953
-      </div>
+        0xf1AEB9dB95400D16B16152DAABD0e332FE43f953 
+      </div> 
+      
       <div class="mm-contract" style="margin-top:.5rem;">
         <span class="mm-contract-label">FUNCTION</span>
         useTicket(string _id)
@@ -452,7 +453,7 @@
 // ===== BLOCKCHAIN =====
 let web3, contract;
 const contractAddress = //YOUR SMART CONTRACT ADDRESS AS A STRING;
-const contractABI = //YOUR ABI FROM REMIX;
+const contractABI = //YOUR ABI FROM REMIX as an array [];
 
 async function connectBlockchain() {
   if (window.ethereum) {
