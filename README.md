@@ -1,7 +1,7 @@
 # ChainPass
 
 ChainPass is a simple blockchain-based ticket authentication system designed to prevent ticket fraud.  
-Each ticket is recorded on a blockchain and represented by a QR code. At the event gate, the QR code is scanned and the ticket is verified and permanently burned so it cannot be reused.
+
 
 ---
 
